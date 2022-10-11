@@ -1,0 +1,14 @@
+{
+  "name": "n",
+  "version": "1.0.0",
+  "description": "CL1",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Shark",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  }
+}

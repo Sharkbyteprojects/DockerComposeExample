@@ -1,0 +1,39 @@
+# start: 
+#   docker-compose up -d --scale d=5
+# -d = deamon (start in background, stop with "docker-compose down")
+version: "3"
+services:
+  rabbit:
+    image: rabbitmq:3
+    container_name: "rabbit"
+    expose:
+      - "5672"
+  d:
+    build:
+      context: "n"
+    depends_on:
+      - "rabbit"
+    #ports:
+    #  - 8080:3000
+    restart: on-failure
+    links:
+      - rabbit
+  log:
+    build:
+      context: "mrec"
+    depends_on:
+      - "rabbit"
+    restart: on-failure
+    links:
+      - rabbit
+  haproxy:
+    depends_on:
+      - "d"
+    links:
+      - "d"
+    build:
+      context: "haprox"
+    ports:
+      - 8081:80
+      - 8080:6090
+    restart: on-failure

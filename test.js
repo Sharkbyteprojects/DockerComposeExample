@@ -1,0 +1,1 @@
+setInterval(()=>{require("node:http").request("http://localhost:8080/"+require("node:crypto").randomBytes(24).toString("hex"), (response)=>{var str = '';response.on('data', function (chunk) {str += chunk;});response.on('end', function () {console.log(str);});}).end();}, 1);
